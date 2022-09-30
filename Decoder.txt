@@ -1,0 +1,25 @@
+Decoder:
+module hamd(c,clk,s,c2,d
+ );
+input clk;
+input[6:0] c;
+output reg[2:0]s;
+output reg[6:0] c2;
+output reg[3:0]d;
+always@(posedge clk)
+begin
+s[2]=c[0]^c[4]^c[5]^c[6];
+s[1]=c[1]^c[2]^c[5]^c[6];
+s[0]=c[0]^c[2]^c[4]^c[6];
+c2=c;
+if(s)
+c2[s-1]=~c[s-1];
+end
+always@(c2)
+begin
+d[0]=c2[2];
+d[1]=c2[4];
+d[2]=c2[5];
+d[3]=c2[6];
+end
+endmodule
